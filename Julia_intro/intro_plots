@@ -1,20 +1,13 @@
-# Still some problems here!!
-using Images, GeometryTypes, GLVisualize, Reactive, GLWindow, Colors
-using GLAbstraction, GLFW
-import GLAbstraction: imagespace, singlepressed
-import GLVisualize: moving_average
+# documents of juliaplots see http://docs.juliaplots.org/latest/tutorial/
+using Plots
+x = 1:10; y = rand(10); # These are the plotting data
+plot(x,y)
 
-if !isdefined(:runtests)
-    window = glscreen()
-end
+x = 1:10; y = rand(10,2) # 2 columns means two lines
+plot(x,y)
+z = rand(10)
+plot!(x,z)
 
-color_a = Signal(RGBA{Float32}(1,0,0,1))
-iconsize = 54
-color_v, color_s = widget(color_a, window, area=(iconsize, iconsize))
-edit_screen = Screen(window, area = map(window.area) do a
-    SimpleRectangle(0, 0, a.w, iconsize)
-end)
-paint_screen = Screen(window, area = map(window.area) do a
-    SimpleRectangle(0, iconsize, a.w, a.h-iconsize)
-end)
-GLVisualize.add_screen(paint_screen)
+x = 1:10; y = rand(10,2) # 2 columns means two lines
+plot(x,y,title="Two Lines",label=["Line 1" "Line 2"],lw=3)
+xlabel!("My x label")

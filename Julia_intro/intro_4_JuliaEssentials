@@ -1,0 +1,62 @@
+# Sen Lu, examples from quantecon.org.
+# Chp Julia Essentials
+
+#--- Primitive Data Types
+x = true
+typeof(x)
+y = 1>2
+println(y)
+z = true + false
+println(z)
+sum([true, false, true, false, true])
+
+typeof(1.0)
+typeof(1)
+x = 2; y=1.0
+println(x*y)
++(10,20)
+*(10,20)
+#--- Strings
+x = "foobar"
+typeof(x)
+x= 10; y=20
+"x = $x"
+z = x+y
+println("x + y =$z")
+"foo" * "bar"
+s = "Charlie don't surf"
+split(s)
+replace(s, "surf", "ski")
+split("fee,fi,fo", ",")
+strip("  foobar  ")
+#--- Julia can also find and replace using regular expressions
+match(r"(\d+)","Top 10")
+
+#--- Containers
+# For tuples, which act as "immutable" arrays
+x = ("foo","bar")
+typeof(x)
+#immutable like you run: x[1]=42
+word1, word2 = x
+#--- Referencing Items
+x = [10, 20, 30, 40]
+x[end]
+x[end-1]
+x[1:3]
+x[2:end]
+# slice could also work on strings
+"foobar"[3:end]
+
+#--- DICTIONARIES which is quite important when deal with json data file
+d = Dict("name"=>("Frodo","Sen","Kevin"),"age"=>(33,32,44))
+d["age"]
+# println(d)
+typeof(d["age"])
+println(keys(d))
+println(values(d))
+
+#--- Reading from and writing to text files
+f = open("newfile.txt","w") # "w" is for writing
+write(f, "testing\n") # \n for newline
+write(f, "More testing \n")
+close(f) # this line create the file with contents

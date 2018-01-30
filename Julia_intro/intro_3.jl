@@ -156,6 +156,7 @@ println("The probability of winning this game is $ratio")
 
 #--- Plot three time series together
 using Plots
+
 alphas = [0.0, 0.8, 0.98]
 T = 200
 

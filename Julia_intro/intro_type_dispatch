@@ -130,3 +130,34 @@ struct AR1_best{T <: Real}
     phi::Distribution
 end
 m = AR1_best(0.9,1.0,1.0, Beta(5,5))
+
+
+#--- Exercise
+using Distributions
+# struct simulate
+#     m::AR1_best
+#     n::Integer
+#     x0::Real
+# end
+
+struct AR1_ex1{T <: Real}
+    a::T
+    b::T
+    sigma::T
+    phi::Distribution
+end
+
+# write the function to simulate
+function simulate_ex1(m::AR1_ex1, n::Integer, x0::Real)
+    X = Array{Float64}(n)
+    X[1] = x0
+    for t in 1:(n-1)
+        X[t+1] = m.a * X[t] + m.b + m.sigma * rand(m.phi)
+    end
+    return X
+end
+
+m = AR1_ex1(0.9,1.0,1.0,Normal(0,1))
+X = simulate_ex1(m,100,0.0)
+using Plots
+plot(X, legend=:none)

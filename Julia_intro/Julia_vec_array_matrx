@@ -144,6 +144,7 @@ ones(2,2)+2ones(2,2)
  c = a[b]
 
  #--- Vectorized functions
+ 
  #  Julia provides standard mathematical functions such as log exp sin, etc.
  log(1.0)
  log.(ones(4))  # Notice that function that act elementwise on arrays in this manner are vectorized functions

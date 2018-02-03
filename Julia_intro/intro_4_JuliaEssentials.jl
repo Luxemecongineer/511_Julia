@@ -1,5 +1,5 @@
 # Sen Lu, examples from quantecon.org.
-# Chp Julia Essentials. All examples from QuantEcon
+# Chp Julia Essentials. All examples from QuantEcon. 
 
 #--- Primitive Data Types
 x = true

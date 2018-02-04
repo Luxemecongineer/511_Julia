@@ -1,0 +1,29 @@
+# Sen LU, try to test how to display plots in Atom/Juno
+
+#---
+using Plots
+pyplot() #call backend
+one = plot(sin, 0:.1:2pi)
+two = plot(cos,0:.1:2pi)
+
+#---
+using Plots
+pyplot()
+x = linspace(0,10,200)
+y = sin.(x)
+plot(x,y,linewidth=2)
+
+#---
+using PyPlot
+x = linspace(0, 10, 200)
+y = sin.(x)
+fig, ax = subplots()
+ax[:plot](x, y, "r-", linewidth=2, label=L"$y = \sin(x)$", alpha=0.6)
+ax[:legend](loc="upper center")
+
+#---
+using PyPlot
+x = linspace(0,2*pi,1000); y = sin.(3 * x + 4 * cos.(2 * x));
+plot(x, y, color="red", linewidth=2.0, linestyle="--")
+title("A sinusoidally modulated sinusoid")
+show()

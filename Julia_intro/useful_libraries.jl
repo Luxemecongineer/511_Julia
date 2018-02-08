@@ -33,7 +33,10 @@ df = DataFrame(commod=commodities, price = last_price)
 println(df)
 # Columns of DataFrame can be accessed by name
 df[:price]
+df[:price][1]
+typeof(df[:price])
 df[:commod]
+df[:commod][1]
 # Dataframe provides a number of methods for acting on Dataframes
 # Describe the fundamental statistic description, than run on DataFrame
 describe(df)
@@ -47,7 +50,7 @@ writetable("data_file.csv", df)
 
 using Interpolations
 using Plots
-plotlyjs()
+pyplot()
 
 x = -7:7
 typeof(x)
@@ -55,11 +58,12 @@ y = sin.(x)
 xf = -7:0.1:7
 typeof(xf)
 plot(xf, sin.(xf), label = "sine function")
+gui()
 
 #--- another
 using QuantEcon
 using Plots
-# plotlyjs()
+pyplot()
 x = -7:7
 y = sin.(x)
 xf = -7:0.1:7

@@ -11,7 +11,7 @@ newton(f,0.7)
 fzero(f,0,1)
 
 #--- For univariate, constrained minimization problem, call optimize()
-using Optim.clear!
+using Optim
 
 x = optimize(x -> x^2, -1.0, 1.0) # objective function f(x) = x^2
 println(x)

@@ -18,7 +18,7 @@ function h(a,b)
 end
 
 @time h(1.0, 1.0)
-
+println(h(1.0,1.0))
 #--- Excution 3  prepend the global variable with const
 const b_const = 1.0
 function k(a)

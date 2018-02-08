@@ -1,6 +1,7 @@
 # Examples in this file comes from Quant-Econ
 #---
 using Plots
+pyplot()
 ts_length = 100
 epsilon_values = randn(ts_length)
 
@@ -10,6 +11,7 @@ plot(epsilon_values, fmt= :png)
 gui()
 #--- How to use function to generate corresponding array
 using Plots
+pyplot()
 function generate_data(n)
     epsilon_values = Array{Float64}(n)
     for i = 1:n
@@ -21,10 +23,11 @@ end
 ts_length =150
 data = generate_data(ts_length)
 plot(data, fmt=:png)
-
+gui()
 #--- This cell using Distribution function to draw data
 using Distributions
-
+using Plots
+pyplot()
 function plot_histogram(distribution, n)
     epsilon_values = rand(distribution, n)  # n draws from distribution
     histogram(epsilon_values)
@@ -32,6 +35,7 @@ end
 
 lp = Laplace()
 plot_histogram(lp, 500)
+gui()
 
 #---  Following is my answer of exercises in https://lectures.quantecon.org/jl/julia_by_example.html
 # Exercise 1
@@ -156,6 +160,7 @@ println("The probability of winning this game is $ratio")
 
 #--- Plot three time series together
 using Plots
+pyplot()
 
 alphas = [0.0, 0.8, 0.98]
 T = 200

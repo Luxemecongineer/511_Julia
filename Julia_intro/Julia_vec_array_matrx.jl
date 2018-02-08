@@ -56,9 +56,9 @@ a = collect(10:10:40)
 b = [10*i for i in 1:4]
 a == b
 c = randn(2, 2)
-# Get the first column of arrays c, just like MatlaB
+# Get the first row(column) of arrays c, just like MatlaB
 c[1,:]
-# One very useful method is using booleans to extract elements of an array
+#--- One very useful method is using booleans to extract elements of an array
 a = randn(2,2)
 # generate an array of booleans
 b = eye(2)
@@ -132,27 +132,26 @@ ones(2,2)+2*ones(2,2)
 ones(2,2)+2ones(2,2)
 
 #--- Elementwise comparasions
- a = [10,20,30]
- b = [100,-10,40]
- b.>a
- b.<a
- a.==b
- b.>20
- # recall the example of using booleans to extract elements
- a = randn(4)
- b = a.>0
- c = a[b]
+a = [10,20,30]
+b = [100,-10,40]
+b.>a
+b.<a
+a.==b
+b.>20
+#--- recall the example of using booleans to extract elements
+a = randn(4)
+b = a.>0
+c = a[b]
 
- #--- Vectorized functions
+#--- Vectorized functions
+#  Julia provides standard mathematical functions such as log exp sin, etc.
+log(1.0)
+log.(ones(4))  # Notice that function that act elementwise on arrays in this manner are vectorized functions
+[log(x) for x in ones(4)]  # This return same result as previous one
 
- #  Julia provides standard mathematical functions such as log exp sin, etc.
- log(1.0)
- log.(ones(4))  # Notice that function that act elementwise on arrays in this manner are vectorized functions
- [log(x) for x in ones(4)]  # This return same result as previous one
-
- #---Linear Algebra
- A = [1 2; 3 4]
- θ = det(A)
- γ = trace(A)
- α = eigvals(A)
- β = rank(A)
+#---Linear Algebra
+A = [1 2; 3 4]
+θ = det(A)
+γ = trace(A)
+α = eigvals(A)
+β = rank(A)

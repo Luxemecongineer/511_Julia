@@ -21,5 +21,4 @@ for i in 1:num_rows
         ax[:set_yticks]([])
     end
 end
-
 show()

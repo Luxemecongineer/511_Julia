@@ -21,7 +21,7 @@ function mc_sample_path(P; init=1, sample_size=1000)
     X = Array{Int64}(sample_size)  #allocate memory
     X[1] = init
     #=== convert each row of P into a distribution ===#
-    n = size(P)[1]  #obtains the # of rows, that specify tansition Probabilities
+    n = size(P)[1]  #obtains the # of rows, that specify tansition Probabilities.
     P_dist = [DiscreteRV(vec(P[i,:])) for i in 1:n]
 
     #=== generate the sample path ===#

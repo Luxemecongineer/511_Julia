@@ -70,14 +70,57 @@ for node in keys(test_graph)
     J_0[node] = M
 end
 
-# J_0["node99"] = 0
-test_graph["node99"]
+# TEST for oneshot updating.
+# J_1 = update_J(J_0,test_graph).
 
-# TEST for oneshot updating
-J_1 = update_J(J_0,test_graph)
+#########################
+#  Solve the Bellman eq #
+#########################
+enu = 0
+while true
+    next_J = update_J(J_0,test_graph)
+    if next_J == J
+        break
+    else
+        enu += 1
+        J_0 = next_J
+        println("Iteration $enu")
+    end
+end
 
+##########################
+# Print the optimal path #
+##########################
 
-@printf "\n cost is %.2f" J_1["node87"][1]
+function print_best_path(J, graph)
+    sum_costs = 0
+    current_location ="node0"
+    while current_location !="node99"
+        println(current_location)
+        running_min = 1e10
+        minimizer_dest = "none"
+        minimizer_cost = 1e10
+        for (dest, cost) in graph[current_location]
+            cost_of_path = cost + J[dest]
+            if cost_of_path < running_min
+                running_min = cost_of_path
+                minimizer_cost = cost
+                minimizer_dest = dest
+            end
+        end
+
+        current_location = minimizer_dest
+        sum_costs += minimizer_cost
+    end
+
+    println("node99")
+    @printf "\n Cost: %.2f" sum_costs
+end
+
+print_best_path(J_0, test_graph)
+
+# print float number with a given
+# @printf "\n cost is %.2f" J_1["node87"][1]
 
 #--- Test
 cwd_path = "C:\\working\\cs\\Econometrics\\511_Julia\\Julia_intro\\SingleAgentModels\\ShortestPath"

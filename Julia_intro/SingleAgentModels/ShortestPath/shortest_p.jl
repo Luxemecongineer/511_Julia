@@ -1,5 +1,9 @@
 # Sen Lu
+# Feb 10th
 
+#########################
+#     graph function    #
+#########################
 #--- read data then create the graph of the physical structure.
 # Notice that this funciton use dict to store value
 # the upside of using Dict is indexing by string. valid for limited # of discrete state space
@@ -23,22 +27,7 @@ function read_graph(in_file)
     end
     close(infile)
     return graph
-    # return graph
-
 end
-
-#giving the graph graph and current pseudo optimal path J, following function updates efficient path
-function update_J(J,graph)  # J is a vector, graph is the Dict create by data
-    # Create an empty dictionary to store and return
-    next_J= Dict()
-    # keys(graph) query the index of dict, then one could use it to do loop.
-    for node in keys(graph)
-        if node == "node99"
-            next_J[node] == 0
-        else
-            # minimum( a vector ). the vector is defined in line
-            next_J[node] = minimum([cost + J[dest] for (dest, cost) in graph[node] ])
-
 
 # use join path to create full path!
 cwd_path = "C:\\working\\cs\\Econometrics\\511_Julia\\Julia_intro\\SingleAgentModels\\ShortestPath"
@@ -49,7 +38,46 @@ infile=joinpath(cwd_path,file_name)
 test_graph = read_graph(infile)
 
 
+#########################
+#    update function    #
+#########################
+#giving the graph graph and current pseudo optimal cost vector J, following function updates efficient path
+function update_J(J,graph)  # J is a vector of optimal cost, graph is the Dict create by data
+    # Create an empty dictionary to store and return
+    next_J= Dict()
+    # keys(graph) query the index of dict, then one could use it to run loop.
+    for node in keys(graph)
+        if node == "node99"
+            next_J[node] = 0
+        else
+            # minimum( a vector ). the vector is defined in line
+            # Following equation is like Bellman equation!
+            next_J[node] = minimum([cost + J[dest] for (dest, cost) in graph[node] ])
+        end
+    end
+    return next_J
+end
 
+
+#########################
+#  Initial  guess  J_0  #
+#########################
+# generate the initial guess
+# Notice that we set J_0["node99"][1] = 1e10. One could update the value in inner loop.
+const M = 1e10
+J_0 = Dict()
+for node in keys(test_graph)
+    J_0[node] = M
+end
+
+# J_0["node99"] = 0
+test_graph["node99"]
+
+# TEST for oneshot updating
+J_1 = update_J(J_0,test_graph)
+
+
+@printf "\n cost is %.2f" J_1["node87"][1]
 
 #--- Test
 cwd_path = "C:\\working\\cs\\Econometrics\\511_Julia\\Julia_intro\\SingleAgentModels\\ShortestPath"

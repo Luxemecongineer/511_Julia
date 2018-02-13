@@ -35,6 +35,11 @@
 
 module MJS_module
 
+# A test function.
+function test_m1(x::Real)
+    return 2*x
+end
+
 using Distributions
 
 # A default utility function
@@ -87,14 +92,14 @@ function update_bellman!{TF<:Real}(mcm::McCallModel,V::AbstractVector{TF},
         # w_idx indexes the vector of possible wages
         V_new[w_idx] = u(w,σ) + β*((1-α)*V[w_idx]+ α*U)
     end
+    # Another method to update vector value is
+    # V_new .= u.(w_vec,σ) .+ (β*(1-α)).*V .+ β*α*U[1]
 
     U_new = u(c,σ) + β*(1-γ)*U + β*γ*dot(max.(U,V), mcm.p_vec)
     return U_new
 end
 
-function test_m1(x::Real)
-    return 2*x
-end
+
 
 
 # This function require the argument satisfy the self-defined type-- McCallModel.
@@ -122,5 +127,23 @@ function solve_McCall_Model(mcm::McCallModel;
     println("Iteration $i")
     return V,U
 end
+
+function compute_rw(mcm::MJS_module.McCallModel; return_values::Bool=false)
+    V,U = MJS_module.solve_McCall_Model(mcm)
+    w_idx = searchsortedfirst(V-U,0)
+
+    if w_idx == length(V)
+        w_bar = inf
+    else
+        w_bar = mcm.w_vec[w_idx]
+    end
+
+    if return_values == false
+        return w_bar
+    else
+        return w_bar,V,U
+    end
+end
+
 
 end

@@ -1,2 +1,5 @@
 # Sen Lu
-println("Try to swith language")
+include("test_module.jl")
+import MyTestModule
+
+println(x())

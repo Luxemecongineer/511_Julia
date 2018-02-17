@@ -1,5 +1,6 @@
 using LaTeXStrings
 using QuantEcon
+using StatsBase: midpoints
 using Plots
 pyplot()
 

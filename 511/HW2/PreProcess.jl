@@ -20,7 +20,6 @@ function gen_smk(x)
     end
 end
 
-
 df[:smoke] = Vector(gen_smk.(df[:cigs]))
 
 
@@ -40,6 +39,8 @@ end
 
 R1_df = DataFrame(smk = Vector(dropnull(df[:smoke])), medu = Vector(dropnull(df[:motheduc])), white = Vector(dropnull(df[:white])), inc = Vector(dropnull(df[:lfaminc])))
 Probit = glm(@formula(smk~ medu + white + inc), R1_df, Binomial(),ProbitLink())
+
+
 
 #--- Second regression
 
@@ -80,7 +81,7 @@ deleterows!(df2,Int.(null_column_2))
 R2_df = DataFrame(smk = Vector(dropnull(df2[:smoke])), medu = Vector(dropnull(df2[:motheduc])), white = Vector(dropnull(df2[:white])), inc = Vector(dropnull(df2[:lfaminc])), fedu = Vector(dropnull(df2[:fatheduc])))
 OLS = glm(@formula(inc ~ medu + white + fedu), R2_df, Normal(), IdentityLink())
 
-#
+
 # col_medu = df[:motheduc]
 #
 # dropnull(df[:motheduc])

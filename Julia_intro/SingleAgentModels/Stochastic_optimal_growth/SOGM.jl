@@ -109,3 +109,33 @@ ax[:plot](grid_y, v_star.(grid_y), lw=2, alpha=0.6, label=L"$v^*$")
 ax[:legend](loc="lower right")
 
 show()
+
+######################################
+# another experiment.
+# test iteration performance
+# This figure plots first 36 iteration of bellman operator.
+######################################
+w = 5* log.(grid_y) # Initial guess of the value function
+n = 35
+fig, ax = subplots(figsize=(9,6))
+
+ax[:set_ylim](-50,10)
+ax[:set_xlim](minimum(grid_y),maximum(grid_y))
+lb = "Initial condition"
+jet = ColorMap("jet")
+ax[:plot](grid_y,w,color=jet(0),lw=2,alpha=0.6,label=lb)
+for i in 1:n
+  w=bellman_operator_diy(w,
+  grid_y,
+  β,
+  log,
+  k->k^α,
+  shocks)  # update w: a recursive expression for w
+
+  ax[:plot](grid_y,w,color=jet(i/n),lw=2,alpha=0.6)
+end
+lb = "True value function"
+ax[:plot](grid_y,v_star.(grid_y),"k-",lw=2,alpha=0.8,label=lb)
+ax[:legend](loc="lower right")
+
+##########################

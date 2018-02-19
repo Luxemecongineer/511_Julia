@@ -139,3 +139,64 @@ ax[:plot](grid_y,v_star.(grid_y),"k-",lw=2,alpha=0.8,label=lb)
 ax[:legend](loc="lower right")
 
 ##########################
+# Solve this dynamic programing problem via iteration
+##########################
+function solve_optgrowth(initial_w;
+  tol::AbstractFloat=1e-6,
+  max_iter::Integer=500)
+
+  w = initial_w
+  error = tol+1
+  i = 0
+  # One memory free method is creating a new storage array for bellman operator
+  # Allocation and speeds code up
+  w_new = similar(grid_y)  # the size as state space
+
+  # Iterate to find solution
+  while (error > tol)&&(i<max_iter)
+    w_new = bellman_operator_diy(w,
+    grid_y,
+    β,
+    log,
+    k->k^α,
+    shocks)  # update w: a recursive expression for w
+    error = maximum(abs,w_new - w)
+    w = w_new
+    i += 1
+  end
+  println("Iteration",i)
+  return w
+end
+
+# Then one could make a test by plotting it against the true value ("True" comes from theory: reduced form solution)
+initial_w = 5*log.(grid_y)
+v_star_approx=  solve_optgrowth(initial_w)
+
+fix,ax = subplots(figsize = (9,5))
+ax[:set_ylim](-35,-24)
+ax[:plot](grid_y,v_star_approx,lw=2,alpha=0.6,label="Approximate value function")
+ax[:plot](grid_y,v_star.(grid_y),lw=2,alpha=0.6,label="True value function")
+ax[:legend](loc="lower right")
+
+
+# One could directly call compute fixed point function in QuantEcon.
+# One argument is bellman operator, essentially a contraction mapping
+
+import QuantEcon: compute_fixed_point
+
+Tw= similar(grid_y)
+initial_w = 5*log.(grid_y)
+
+bellman_operator_diy(w)= bellman_operator_diy(w,grid_y,β,log,k->k^α,shocks)
+
+v_star_approx2 = compute_fixed_point(bellman_operator_diy,initial_w,max_iter=500,verbose=2,print_skip=10,err_tol=1e-5)
+
+fig,ax = subplots(figsize=(9,5))
+ax[:set_ylim](-35,-24)
+ax[:plot](grid_y,v_star_approx2,lw=2,alpha=0.6,label="approximate value function")
+ax[:plot](grid_y,v_star_approx,lw=2,alpha=0.6,label="200 iterations value function")
+ax[:plot](grid_y,v_star.(grid_y),lw=2,alpha=0.6,label="true value function")
+ax[:legend](loc="lower right")
+show()
+
+v_star_approx0 = v_star.(grid_y)

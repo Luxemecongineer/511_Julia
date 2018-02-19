@@ -271,13 +271,6 @@ function compare_error(m::Model,
     g,w = g_init,w_init
     g_test = similar(g)
     ############################
-    # tmp_error = similar(c_star)
-    # for i =1:sim_length
-    #     new_g = coleman_operator(g,m.grid,m.β,m.u_prime,m.f,m.f_prime,shocks)
-    #     g = new_g # recursion~
-    #     tmp_error = c_star - g
-    # end
-    # ax[:plot](m.grid,tmp_error,lw=2,alpha=0.6)
 
     # use same model instance to call two different operators.
     # Following two functions just simplify the notation (too many arguments) of operator functions.
@@ -298,4 +291,4 @@ function compare_error(m::Model,
     ax[:legend](loc="lower left")
 end
 m
-compare_error(m,shocks,m.grid,m.u.(m.grid),sim_length=20)
+compare_error(m,shocks,m.grid,m.u.(m.grid),sim_length=300)

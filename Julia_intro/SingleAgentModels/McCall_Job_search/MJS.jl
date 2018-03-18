@@ -138,7 +138,8 @@ using Plots, LaTeXStrings
 pyplot()
 
 mcm = McCallModel() # create the container that stores all the exogeneous variables
-@time V,U = solve_McCall_Model(mcm)
+# @time V,U = solve_McCall_Model(mcm)
+V,U = solve_McCall_Model(mcm)
 # following vec is just used for ploting.
 U_vec = U .* ones(length(mcm.w_vec))
 

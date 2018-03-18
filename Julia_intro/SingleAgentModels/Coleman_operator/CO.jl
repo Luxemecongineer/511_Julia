@@ -195,6 +195,7 @@ function verify_true_policy(m::Model,
     ax[:plot](m.grid, c_star, label=L"Optimal Policy $c^*$")
     ax[:plot](m.grid, c_star_new, label=L"$Kc^*$")
     ax[:legend](loc="upper left")
+    show()
 end
 
 # According to the theory of reduced form policy function
@@ -231,6 +232,7 @@ function check_convergence(m::Model,
     end
     ax[:plot](m.grid,c_star,"k-",lw=2,alpha=0.8,label=L"True policy function $c^*$")
     ax[:legend](loc="upper left")
+    show()
 end
 
 # Plots whether it converge
@@ -289,6 +291,7 @@ function compare_error(m::Model,
     ax[:plot](m.grid,pf_error, lw=2,alpha=0.6,label = "Policy iteration error")
     ax[:plot](m.grid,vf_error, lw=2,alpha=0.6,label = "value iteration error")
     ax[:legend](loc="lower left")
+    show()
 end
 m
 compare_error(m,shocks,m.grid,m.u.(m.grid),sim_length=300)

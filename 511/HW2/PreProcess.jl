@@ -2,6 +2,7 @@
 
 # Import modules
 using CSV
+using FileIO
 using DataFrames
 using DataFramesMeta
 using GLM
@@ -9,8 +10,12 @@ using NullableArrays
 
 # Import CSV data file
 csv_path = "C:\\working\\cs\\Econometrics\\511_Julia\\511\\HW2\\bwght_csv.csv"
-df = CSV.read(csv_path)
+df = CSV.read(csv_path;nullable=true)
 
+
+typeof(df[207,7])
+df[205:208,:]
+isnull(df[207,7])
 # A function that is used to generate smoke binary var.
 function gen_smk(x)
     if x>0
@@ -21,6 +26,7 @@ function gen_smk(x)
 end
 
 df[:smoke] = Vector(gen_smk.(df[:cigs]))
+
 
 
 null_column = []
@@ -54,7 +60,7 @@ using NullableArrays
 # Import CSV data file
 csv_path = "C:\\working\\cs\\Econometrics\\511_Julia\\511\\HW2\\bwght_csv.csv"
 
-df2 = CSV.read(csv_path)
+df2 = CSV.read(csv_path;nullable=true)
 
 # A function that is used to generate smoke binary var.
 function gen_smk(x)

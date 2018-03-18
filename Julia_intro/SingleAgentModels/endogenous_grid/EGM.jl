@@ -177,13 +177,14 @@ function verify_true_policy(m::Model,
                             shocks::AbstractVector,
                             c_star::Function)
     k_grid = m.grid
-    c_star_new = coleman_egm(c_star,
+    c_star_new = coleman_EGM(c_star,
             k_grid, m.β, m.u_prime, m.u_prime, m.f, m.f_prime, shocks)
     fig, ax = subplots(figsize=(9, 6))
 
     ax[:plot](k_grid, c_star.(k_grid), label=L"optimal policy $c^*$")
     ax[:plot](k_grid, c_star_new.(k_grid), label=L"$Kc^*$")
     ax[:legend](loc="upper left")
+    show()
 end
 
 verify_true_policy(mlog,shocks,c_star)
@@ -212,6 +213,7 @@ function check_convergence(m::Model,
     ax[:plot](k_grid, c_star.(k_grid),
                 "k-", lw=2, alpha=0.8, label= L"true policy function $c^*$")
     ax[:legend](loc="upper left")
+    show()
 end
 
 check_convergence(mlog, shocks, c_star, g_init, n)

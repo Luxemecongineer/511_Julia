@@ -1,6 +1,7 @@
 using PyPlot
 using Distributions
 
+pygui()
 u = Uniform()
 num_rows, num_cols = 2, 3
 fig, axes = subplots(num_rows, num_cols, figsize=(16,6))
@@ -21,4 +22,3 @@ for i in 1:num_rows
         ax[:set_yticks]([])
     end
 end
-show()

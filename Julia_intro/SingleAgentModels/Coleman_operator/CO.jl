@@ -201,7 +201,7 @@ end
 # According to the theory of reduced form policy function
 # To discretize the function, via obtain a grid of its values
 c_star = (1-m.α*m.β)*m.grid
-verify_true_policy(m,shocks,c_star)
+# verify_true_policy(m,shocks,c_star)
 # Actually, this just test if c_star is the fixed point.
 # Following ganna be the test about convergence.
 """
@@ -236,7 +236,7 @@ function check_convergence(m::Model,
 end
 
 # Plots whether it converge
-check_convergence(m,shocks,c_star,m.grid,n_iter=20)
+# check_convergence(m,shocks,c_star,m.grid,n_iter=20)
 
 function iterate_updating(func::Function,
     arg_init::AbstractVector;
@@ -294,4 +294,4 @@ function compare_error(m::Model,
     show()
 end
 m
-compare_error(m,shocks,m.grid,m.u.(m.grid),sim_length=300)
+compare_error(m,shocks,m.grid,m.u.(m.grid),sim_length=40)

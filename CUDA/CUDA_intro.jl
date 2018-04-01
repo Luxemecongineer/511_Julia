@@ -25,6 +25,11 @@ d_a = CuArray(a)
 d_b = CuArray(b)
 d_c = similar(d_a)
 
+# check out the attribute of current device
+attribute(dev, CUDAdrv.MAX_THREADS_PER_BLOCK)
+attribute(dev, CUDAdrv.MAX_BLOCK_DIM_Z)
+
+
 # execute and fetch results
 @cuda (1,len) kernel_vadd(d_a, d_b, d_c)    # from CUDAnative.jl
 c = Array(d_c)
@@ -33,3 +38,8 @@ using Base.Test
 @test c == a + b
 
 destroy(ctx)
+
+#--- What if one has more than 1024 threads
+# like len1 = 2048
+len1 = 2048
+a1 = rand(Float32,len1)

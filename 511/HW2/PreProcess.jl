@@ -12,10 +12,15 @@ using NullableArrays
 csv_path = "C:\\working\\cs\\Econometrics\\511_Julia\\511\\HW2\\bwght_csv.csv"
 df = CSV.read(csv_path;nullable=true)
 
+isna(df[207,7])
 
 typeof(df[207,7])
 df[205:208,:]
 isnull(df[207,7])
+
+typeof(df[:,7])
+# dropnull(df[:motheduc])
+df[~isnull.(df[:,:motheduc]),:]
 # A function that is used to generate smoke binary var.
 function gen_smk(x)
     if x>0

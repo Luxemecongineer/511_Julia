@@ -1,6 +1,7 @@
 using QuantEcon: meshgrid
 using PyPlot
 
+pygui()
 n = 50
 x = linspace(-3, 3, n)
 y = x
@@ -16,4 +17,3 @@ end
 xgrid, ygrid = meshgrid(x, y)
 surf(xgrid, ygrid, z', cmap=ColorMap("jet"), alpha=0.7)
 zlim(-0.5, 1.0)
-show()

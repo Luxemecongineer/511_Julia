@@ -1,8 +1,8 @@
 using Distributions
 using PyPlot
 
+pygui()
 u = Uniform()
-
 fig, ax = subplots()
 x = linspace(-4, 4, 150)
 # grid("on")
@@ -15,4 +15,3 @@ for i in 1:3
     ax[:plot](x, y, linewidth=2, alpha=0.6, label="draw $i")
 end
 ax[:legend]()
-show()

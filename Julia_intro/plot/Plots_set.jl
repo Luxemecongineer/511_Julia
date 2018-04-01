@@ -1,8 +1,11 @@
 #--- Plot 0
+""" As for using Plots, once one call pyplot() as backend, one might should set gui() as :tk.
+"""
+
 using Plots
 pyplot()
 # plot(Plots.fakedata(50,5),w=3)
-plot(Plots.fakedata(50,5),w=1.5)  # w = ? specifie linewidth
+plot(Plots.fakedata(50,5),w=2.)  # w = ? specifie linewidth
 gui()
 
 #--- Plot 1
